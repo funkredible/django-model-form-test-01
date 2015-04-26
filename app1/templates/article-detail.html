@@ -1,0 +1,23 @@
+<h1>記事</h1>
+<p>{{ article.text }}</p>
+
+<h2>コメントする</h2>
+<form action="/article/{{ article.id }}/comment/" method="post">
+	{% csrf_token %}
+	{{ comment_form.non_field_errors }}
+	<div>
+		{{ comment_form.text }}
+		{{ comment_form.text.errors }}
+	</div>
+	{{ comment_form.article }}
+	<div><input type="submit" value="Submit" /></div>
+</form>
+
+<h2>コメント一覧</h2>
+{% if comment_list %}
+    {% for comment in comment_list %}
+        <p>{{ comment.text }}</p>
+    {% endfor %}
+{% else %}
+    <p>comments don't exist.</p>
+{% endif %}
